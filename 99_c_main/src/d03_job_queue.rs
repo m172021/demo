@@ -18,6 +18,10 @@ pub enum MsgFrom_Node_JobQueue {
 
 // ==== Impl
 
+pub struct Last_Msg_Manager {
+    last_msg: HashMap<Node_Addr, u64>, // track last msg
+}
+
 pub struct Node_JobQueue {
     need_to_fetch: VecDeque<Url256>,
     fetching_cur: HashSet<Url256>, // currently in flight
@@ -25,6 +29,8 @@ pub struct Node_JobQueue {
     all: HashSet<Url256>,          // union of need_to_fetch and fetching
     ttl_insert: u64,               // need this to check for when job queue is empty
     shard_group: Node_JobQueue_SG,
+
+    last_msg_manager: Last_Msg_Manager,
 }
 
 impl Node_Config_T for Node_JobQueue {

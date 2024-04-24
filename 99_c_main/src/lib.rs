@@ -46,6 +46,7 @@ pub use d03_job_queue::*;
 pub use d04_fetcher_async::*;
 pub use d99_cluster_manager::*;
 
+#[derive(Eq, PartialEq, Hash)]
 pub struct Node_Addr {
     ipv4: std::net::Ipv4Addr,
     port: u32,
