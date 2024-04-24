@@ -1,0 +1,13 @@
+[package]
+name = "x_bintf"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+# x_include_base =                                           { path = "/r/client/00_lang_base/01_x_include_base" }
+
+# x_macros =                                                 { path = "/proj/crawler/29_x_macros" }

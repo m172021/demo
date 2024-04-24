@@ -1,0 +1,14 @@
+[package]
+name = "x_my_proc_macro"
+version = "0.1.100000104"
+edition = "2021"
+
+
+[dependencies]
+
+macro_include =                                            { path = "/proj/crawler/00_macro_include" }
+rast_core =                                                { path = "/proj/crawler/10_rast_core" }
+rast_gen_rr_val =                                          { path = "/proj/crawler/11_rast_gen_rr_val" }
+
+[lib]
+proc-macro = true

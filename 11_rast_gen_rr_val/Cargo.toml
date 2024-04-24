@@ -1,0 +1,10 @@
+[package]
+name = "rast_gen_rr_val"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+macro_include =                                            { path = "/proj/crawler/00_macro_include" }
+rast_core =                                                { path = "/proj/crawler/10_rast_core" }

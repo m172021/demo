@@ -1,0 +1,15 @@
+[package]
+name = "c_main"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+reqwest = "0.12.4"
+select = "0.5"
+anyhow = "1.0.82"
+
+x_my_proc_macro =                                          { path = "/proj/crawler/19_x_my_proc_macro" }

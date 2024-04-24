@@ -1,0 +1,22 @@
+# cargo-features = ["profile-overrides", "rename-dependency"]
+
+# resolver="2"
+
+
+
+
+[profile.test]
+lto = false
+opt-level = 1
+debug-assertions=true
+debug = true
+panic = "abort"
+
+
+
+[workspace]
+resolver = "2"
+
+members = [
+    "99_c_main",
+]
