@@ -1,4 +1,5 @@
 use super::*;
+use std::cell::Cell;
 
 use std::sync::{Arc, Mutex};
 // use std::time::Duration;
@@ -10,6 +11,7 @@ use std::sync::{Arc, Mutex};
 #[derive(Clone)]
 pub struct UrlQueue {
     job_queue: Arc<Mutex<VecDeque<Url>>>,
+    reqs_in_flight: Arc<Mutex<usize>>,
 }
 
 impl UrlQueue {
@@ -24,11 +26,31 @@ impl UrlQueue {
     pub fn new() -> UrlQueue {
         UrlQueue {
             job_queue: Arc::new(Mutex::new(VecDeque::new())),
+            reqs_in_flight: Arc::new(Mutex::new(0)),
         }
     }
 
     pub fn len(&self) -> usize {
         self.job_queue.lock().unwrap().len()
+    }
+
+    pub fn len_plus_inflight(&self) -> usize {
+        let t0 = self.job_queue.lock().unwrap();
+        let t1 = self.reqs_in_flight.lock().unwrap();
+        t0.len() + *t1
+    }
+
+    pub fn req_n(&self, n: usize) {
+        // send msg requesting n jobs
+        let mut t = self.reqs_in_flight.lock().unwrap();
+        *t = *t + n;
+    }
+
+    pub fn push_queue(&self, jobs: Vec<Url>) {
+        let mut t0 = self.job_queue.lock().unwrap();
+        let mut t1 = self.reqs_in_flight.lock().unwrap();
+        *t1 = *t1 - jobs.len();
+        t0.extend(jobs);
     }
 }
 
@@ -90,13 +112,10 @@ impl Node_Fetcher {
             async move {
                 loop {
                     // async sleep 50ms
-                    let n = jq.len();
+                    let n = jq.len_plus_inflight();
                     if (n < num_tasks) {
-                        // how do we handle this ?
-                        // what if network delay ?
-                        // exponential backoff ?
-                        // if we request  (num_tasks - n)  on k ticks,
-                        // do we suddenly get result of k * (num_tasks -n) elements ?
+                        // we track how many are in flight
+                        jq.req_n(num_tasks - n);
                     }
                 }
             }
