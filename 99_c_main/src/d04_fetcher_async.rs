@@ -73,7 +73,7 @@ impl Node_Fetcher {
                             // ugly hack: polling is bad
                             // 100ms delay tolerable vs network io delay
                             // async sleep doesn't pause thread, only suspends async task
-                            todo!("async sleep 50ms");
+                            tokio::time::sleep(std::time::Duration::from_millis(50)).await
                         }
                         Some(url) => {
                             let res = Self::fetch_url(url).await;
