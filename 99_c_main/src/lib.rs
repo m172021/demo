@@ -46,6 +46,11 @@ pub use d03_job_queue::*;
 pub use d04_fetcher_async::*;
 pub use d99_cluster_manager::*;
 
+pub struct Node_Addr {
+    ipv4: std::net::Ipv4Addr,
+    port: u32,
+}
+
 pub trait Node_Config_T {
     type MsgTo;
     type MsgFrom;
