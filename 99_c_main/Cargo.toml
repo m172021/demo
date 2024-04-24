@@ -13,3 +13,6 @@ select = "0.5"
 anyhow = "1.0.82"
 
 x_my_proc_macro =                                          { path = "/proj/crawler/19_x_my_proc_macro" }
+
+digest = "0.10.7"
+sha2 = "0.10.8"
