@@ -19,4 +19,5 @@ resolver = "2"
 
 members = [
     "99_c_main",
+    "98_t2",
 ]
